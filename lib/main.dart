@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:instix_sl_client/provider/DataProvider.dart';
 import 'package:instix_sl_client/screens/HomePage.dart';
+import 'package:instix_sl_client/screens/LoginSSO.dart';
 import 'package:instix_sl_client/screens/LoginSignupScreen.dart';
 import 'package:flutter/services.dart';
+import 'package:instix_sl_client/screens/MainScreen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,13 +23,16 @@ class MyApp extends StatelessWidget {
         statusBarIconBrightness: Brightness.dark,
       ),
     );
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => DataProvider())],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MainScreenSplash(),
       ),
-      home: HomePage(),
     );
   }
 }

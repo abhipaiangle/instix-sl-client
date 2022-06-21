@@ -1,7 +1,10 @@
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:instix_sl_client/constants.dart';
+import 'package:instix_sl_client/screens/LoginSSO.dart';
+import 'package:instix_sl_client/screens/LoginSignupScreen.dart';
 import 'package:intl/intl.dart';
 
 int tabSelection = 1;
@@ -30,8 +33,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Container(
               height: 15,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   margin: EdgeInsets.only(
@@ -43,6 +46,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                     ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(right: 20),
+                  child: PopupMenuButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(borderRadius)),
+                    itemBuilder: (context) => [
+                      PopupMenuItem(
+                        child: Container(
+                          child: Text("Sign out"),
+                        ),
+                        onTap: () async {
+                          var box = await Hive.openBox(AUTH_DATA);
+                          await box.deleteFromDisk();
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginSSO()),
+                              (route) => false);
+                        },
+                      )
+                    ],
                   ),
                 ),
               ],

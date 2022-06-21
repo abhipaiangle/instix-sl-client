@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:instix_sl_client/screens/ProfileScreen.dart';
 import 'package:instix_sl_client/screens/WashingMachineScreen.dart';
+import 'package:provider/provider.dart';
 
+import '../classes/WashingMachine.dart';
 import '../constants.dart';
+import '../provider/DataProvider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -198,6 +201,17 @@ class _HomePageState extends State<HomePage> {
   ];
 
   @override
+  void initState() {
+    machines.forEach((element) {
+      Provider.of<DataProvider>(context, listen: false).addMachine(
+          WashingMachine(
+              floor: element["floor"], mac: element["macId"], bookedSlots: []));
+    });
+    Provider.of<DataProvider>(context, listen: false).printData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -272,7 +286,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: List.generate(
                       machines.length,
-                      (index) => WashingMachine(
+                      (index) => WashingMachineTile(
                         index: machines[index]['floor'],
                         bookedSlots: machines[index]["booked"],
                         macId: machines[index]["macId"],
@@ -317,11 +331,11 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class WashingMachine extends StatefulWidget {
+class WashingMachineTile extends StatefulWidget {
   int index;
   List<dynamic> bookedSlots;
   String macId;
-  WashingMachine({
+  WashingMachineTile({
     Key? key,
     required this.macId,
     required this.bookedSlots,
@@ -329,10 +343,10 @@ class WashingMachine extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<WashingMachine> createState() => _WashingMachineState();
+  State<WashingMachineTile> createState() => _WashingMachineTileState();
 }
 
-class _WashingMachineState extends State<WashingMachine> {
+class _WashingMachineTileState extends State<WashingMachineTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
