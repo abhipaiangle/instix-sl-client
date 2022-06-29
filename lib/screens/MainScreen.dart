@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart';
+import 'package:instix_sl_client/classes/Slot.dart';
 import 'package:instix_sl_client/classes/WashingMachine.dart';
 import 'package:instix_sl_client/constants.dart';
 import 'package:instix_sl_client/provider/DataProvider.dart';
@@ -9,6 +10,14 @@ import 'package:instix_sl_client/screens/LoginSSO.dart';
 import 'package:instix_sl_client/screens/LoginSignupScreen.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+
+Map<dynamic, dynamic> user = {
+  "id": "200020059",
+  "first_name": "Himanshu",
+  "last_name": "Choudhary",
+  "mobile": "+91 79760 73886",
+  "hostel": 16,
+};
 
 List<dynamic> machines = [
   {
@@ -203,14 +212,46 @@ class MainScreenSplash extends StatefulWidget {
 }
 
 class MainScreenSplashState extends State<MainScreenSplash> {
+  void initialLoading() async {
+    await Future.delayed(Duration(milliseconds: 1000), () async {
+      for (int i = 0; i < machines.length; i++) {
+        List<Slot> slots = [];
+        for (int j = 0; j < machines[i]["booked"].length; j++) {
+          slots.add(Slot(
+              start: TimeOfDay.fromDateTime(
+                  DateTime.parse(machines[i]["booked"][j]["start"])),
+              end: TimeOfDay.fromDateTime(
+                  DateTime.parse(machines[i]["booked"][j]["end"]))));
+        }
+        slots.sort(((a, b) => ((a.start.hour * 60) + a.start.minute)
+            .compareTo((b.start.hour * 60) + b.start.minute)));
+        Provider.of<DataProvider>(context, listen: false).addMachine(
+          WashingMachine(
+            floor: machines[i]["floor"],
+            mac: machines[i]["macId"],
+            bookedSlots: slots,
+          ),
+        );
+      }
+      Provider.of<DataProvider>(context, listen: false).initializeUser(
+        user["id"],
+        user["first_name"],
+        user["last_name"],
+        user["mobile"],
+        user["hostel"],
+        [],
+      );
+    });
+    Provider.of<DataProvider>(context, listen: false).printData();
+    Provider.of<DataProvider>(context, listen: false).printUser();
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => HomePage()), (route) => false);
+  }
+
   @override
   void initState() {
-    Future.delayed(Duration(milliseconds: 3000), () {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-          (route) => false);
-    });
+    initialLoading();
+
     super.initState();
   }
 

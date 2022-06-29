@@ -15,199 +15,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<dynamic> machines = [
-    {
-      "floor": 1,
-      "macId": "jfn45n3m5m",
-      "booked": [
-        {
-          "start": "2022-06-13 09:30:00",
-          "end": "2022-06-13 10:20:00",
-        },
-        {
-          "start": "2022-06-13 13:30:00",
-          "end": "2022-06-13 14:40:00",
-        },
-        {
-          "start": "2022-06-13 16:10:00",
-          "end": "2022-06-13 17:00:00",
-        },
-        {
-          "start": "2022-06-13 17:10:00",
-          "end": "2022-06-13 17:50:00",
-        },
-        {
-          "start": "2022-06-13 20:10:00",
-          "end": "2022-06-13 20:40:00",
-        },
-      ],
-    },
-    {
-      "floor": 2,
-      "macId": "dsf093jd9s",
-      "booked": [
-        {
-          "start": "2022-06-13 09:30:00",
-          "end": "2022-06-13 10:20:00",
-        },
-        {
-          "start": "2022-06-13 13:30:00",
-          "end": "2022-06-13 14:40:00",
-        },
-        {
-          "start": "2022-06-13 16:10:00",
-          "end": "2022-06-13 17:00:00",
-        },
-        {
-          "start": "2022-06-13 17:10:00",
-          "end": "2022-06-13 17:50:00",
-        },
-        {
-          "start": "2022-06-13 20:10:00",
-          "end": "2022-06-13 20:40:00",
-        },
-      ],
-    },
-    {
-      "floor": 3,
-      "macId": "hc45hc9ddf",
-      "booked": [
-        {
-          "start": "2022-06-13 09:30:00",
-          "end": "2022-06-13 10:20:00",
-        },
-        {
-          "start": "2022-06-13 13:30:00",
-          "end": "2022-06-13 14:40:00",
-        },
-        {
-          "start": "2022-06-13 16:10:00",
-          "end": "2022-06-13 17:00:00",
-        },
-        {
-          "start": "2022-06-13 17:10:00",
-          "end": "2022-06-13 17:50:00",
-        },
-        {
-          "start": "2022-06-13 20:10:00",
-          "end": "2022-06-13 20:40:00",
-        },
-      ],
-    },
-    {
-      "floor": 4,
-      "macId": "fdfd4c9834",
-      "booked": [
-        {
-          "start": "2022-06-13 09:30:00",
-          "end": "2022-06-13 10:20:00",
-        },
-        {
-          "start": "2022-06-13 13:30:00",
-          "end": "2022-06-13 14:40:00",
-        },
-        {
-          "start": "2022-06-13 16:10:00",
-          "end": "2022-06-13 17:00:00",
-        },
-        {
-          "start": "2022-06-13 17:10:00",
-          "end": "2022-06-13 17:50:00",
-        },
-        {
-          "start": "2022-06-13 20:10:00",
-          "end": "2022-06-13 20:40:00",
-        },
-      ],
-    },
-    {
-      "floor": 5,
-      "macId": "ssd5hc9b5f",
-      "booked": [
-        {
-          "start": "2022-06-13 09:30:00",
-          "end": "2022-06-13 10:20:00",
-        },
-        {
-          "start": "2022-06-13 13:30:00",
-          "end": "2022-06-13 14:40:00",
-        },
-        {
-          "start": "2022-06-13 16:10:00",
-          "end": "2022-06-13 17:00:00",
-        },
-        {
-          "start": "2022-06-13 17:10:00",
-          "end": "2022-06-13 17:50:00",
-        },
-        {
-          "start": "2022-06-13 20:10:00",
-          "end": "2022-06-13 20:40:00",
-        },
-      ],
-    },
-    {
-      "floor": 6,
-      "macId": "zsu76h3f5d",
-      "booked": [
-        {
-          "start": "2022-06-13 09:30:00",
-          "end": "2022-06-13 10:20:00",
-        },
-        {
-          "start": "2022-06-13 13:30:00",
-          "end": "2022-06-13 14:40:00",
-        },
-        {
-          "start": "2022-06-13 16:10:00",
-          "end": "2022-06-13 17:00:00",
-        },
-        {
-          "start": "2022-06-13 17:10:00",
-          "end": "2022-06-13 17:50:00",
-        },
-        {
-          "start": "2022-06-13 20:10:00",
-          "end": "2022-06-13 20:40:00",
-        },
-      ],
-    },
-    {
-      "floor": 7,
-      "macId": "uf8s9d0old",
-      "booked": [
-        {
-          "start": "2022-06-13 09:30:00",
-          "end": "2022-06-13 10:20:00",
-        },
-        {
-          "start": "2022-06-13 13:30:00",
-          "end": "2022-06-13 14:40:00",
-        },
-        {
-          "start": "2022-06-13 16:10:00",
-          "end": "2022-06-13 17:00:00",
-        },
-        {
-          "start": "2022-06-13 17:10:00",
-          "end": "2022-06-13 17:50:00",
-        },
-        {
-          "start": "2022-06-13 20:10:00",
-          "end": "2022-06-13 20:40:00",
-        },
-      ],
-    },
-  ];
+  List<dynamic> machines = [];
 
   @override
   void initState() {
-    machines.forEach((element) {
-      Provider.of<DataProvider>(context, listen: false).addMachine(
-          WashingMachine(
-              floor: element["floor"], mac: element["macId"], bookedSlots: []));
-    });
-    Provider.of<DataProvider>(context, listen: false).printData();
     super.initState();
   }
 
@@ -281,15 +92,17 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 child: SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: List.generate(
-                      machines.length,
-                      (index) => WashingMachineTile(
-                        index: machines[index]['floor'],
-                        bookedSlots: machines[index]["booked"],
-                        macId: machines[index]["macId"],
+                  child: Consumer<DataProvider>(
+                    builder: (context, value, child) => Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: List.generate(
+                        value.machines.length,
+                        (index) => WashingMachineTile(
+                          floor: value.machines[index].floor,
+                          bookedSlots: value.machines[index].bookedSlots,
+                          macId: value.machines[index].mac,
+                        ),
                       ),
                     ),
                   ),
@@ -332,14 +145,14 @@ class _HomePageState extends State<HomePage> {
 }
 
 class WashingMachineTile extends StatefulWidget {
-  int index;
+  int floor;
   List<dynamic> bookedSlots;
   String macId;
   WashingMachineTile({
     Key? key,
     required this.macId,
     required this.bookedSlots,
-    required this.index,
+    required this.floor,
   }) : super(key: key);
 
   @override
@@ -359,10 +172,8 @@ class _WashingMachineTileState extends State<WashingMachineTile> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => WMbusyState(
+              builder: (context) => WMScreen(
                 macId: widget.macId,
-                floor: widget.index,
-                bookedSlots: widget.bookedSlots,
               ),
             ),
           );
@@ -401,7 +212,7 @@ class _WashingMachineTileState extends State<WashingMachineTile> {
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 5),
                     child: Text(
-                      "Floor ${widget.index}",
+                      "Floor ${widget.floor}",
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
