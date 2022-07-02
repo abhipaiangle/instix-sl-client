@@ -9,7 +9,7 @@ class DataProvider extends ChangeNotifier {
   List<WashingMachine> _machines = [];
 
   void initializeUser(String id, String firstName, String lastName,
-      String mobile, int hostel, List<UserSlot> bookedSlots) {
+      String mobile, String hostel, List<UserSlot> bookedSlots) {
     User user = User(
       id: id,
       firstName: firstName,

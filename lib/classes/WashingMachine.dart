@@ -1,7 +1,7 @@
 import 'package:instix_sl_client/classes/Slot.dart';
 
 class WashingMachine {
-  int floor;
+  String floor;
   String mac;
   List<Slot> bookedSlots;
   WashingMachine({

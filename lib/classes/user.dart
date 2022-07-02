@@ -5,7 +5,7 @@ class User {
   String firstName;
   String lastName;
   String mobile;
-  int hostelNo;
+  String hostelNo;
   List<UserSlot> bookedSlots;
   User({
     required this.id,
@@ -19,7 +19,7 @@ class User {
 
 class UserSlot {
   String mac;
-  int floor;
+  String floor;
   TimeOfDay start;
   TimeOfDay end;
   UserSlot({

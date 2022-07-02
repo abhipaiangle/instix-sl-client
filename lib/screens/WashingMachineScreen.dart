@@ -32,47 +32,6 @@ class _WMScreenState extends State<WMScreen> {
   int endMinsIndex = 0;
   int _currentValue = 0;
 
-  /* void reflectConflict() {
-    setState(() {
-      conflict = false;
-    });
-    for (int i = 0; i < widget.bookedSlots.length; i++) {
-      DateTime SLOT_START = DateTime(
-          DateTime.now().year,
-          DateTime.now().month,
-          DateTime.now().day,
-          DateTime.parse(widget.bookedSlots[i]["start"]).hour,
-          DateTime.parse(widget.bookedSlots[i]["start"]).minute);
-      DateTime SLOT_END = DateTime(
-          DateTime.now().year,
-          DateTime.now().month,
-          DateTime.now().day,
-          DateTime.parse(widget.bookedSlots[i]["end"]).hour,
-          DateTime.parse(widget.bookedSlots[i]["end"]).minute);
-      if (SLOT_START.millisecondsSinceEpoch >= start.millisecondsSinceEpoch) {
-        if (SLOT_START.millisecondsSinceEpoch < end.millisecondsSinceEpoch) {
-          setState(() {
-            conflict = true;
-          });
-          break;
-        } else {
-          continue;
-        }
-      }
-      if (SLOT_END.millisecondsSinceEpoch > start.millisecondsSinceEpoch) {
-        if (SLOT_END.millisecondsSinceEpoch <= end.millisecondsSinceEpoch) {
-          setState(() {
-            conflict = true;
-          });
-          break;
-        } else {
-          continue;
-        }
-      }
-    }
-    print("CONFLICT = $conflict");
-  } */
-
   @override
   void initState() {
     super.initState();
@@ -96,7 +55,7 @@ class _WMScreenState extends State<WMScreen> {
                   left: 28,
                 ),
                 child: Text(
-                  "Floor ${machine.floor}",
+                  "$FLOOR ${machine.floor}",
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
@@ -108,7 +67,7 @@ class _WMScreenState extends State<WMScreen> {
                   left: 30,
                 ),
                 child: Text(
-                  "Washing Machine",
+                  WASHING_MACHINE,
                   style: TextStyle(
                     fontSize: 20,
                   ),
@@ -118,7 +77,7 @@ class _WMScreenState extends State<WMScreen> {
                 margin: EdgeInsets.only(left: 30, top: 15),
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Today's Booked Slots",
+                  TODAY_BOOKED_SLOTS,
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -151,7 +110,7 @@ class _WMScreenState extends State<WMScreen> {
                       ),
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Book a slot",
+                        BOOK_SLOT,
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -166,7 +125,7 @@ class _WMScreenState extends State<WMScreen> {
                       ),
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Slot Start Time",
+                        SLOT_START_TIME,
                         style: TextStyle(
                           fontSize: 18,
                         ),
@@ -251,7 +210,7 @@ class _WMScreenState extends State<WMScreen> {
                                     }
                                   }
                                 }
-                                print("CONFLICT = $conflict");
+                                print("$CONFLICT = $conflict");
                               },
                               items: List.generate(
                                 hrs.length,
@@ -267,7 +226,7 @@ class _WMScreenState extends State<WMScreen> {
                               margin: EdgeInsets.only(bottom: 15, top: 15),
                               alignment: Alignment.center,
                               child: Text(
-                                "Hours",
+                                HOURS,
                                 style: TextStyle(
                                   fontSize: 16,
                                 ),
@@ -348,7 +307,7 @@ class _WMScreenState extends State<WMScreen> {
                                     }
                                   }
                                 }
-                                print("CONFLICT = $conflict");
+                                print("$CONFLICT = $conflict");
                               },
                               items: List.generate(
                                 mins.length,
@@ -364,7 +323,7 @@ class _WMScreenState extends State<WMScreen> {
                               margin: EdgeInsets.only(bottom: 15, top: 15),
                               alignment: Alignment.center,
                               child: Text(
-                                "Minutes",
+                                MINUTES,
                                 style: TextStyle(
                                   fontSize: 16,
                                 ),
@@ -382,7 +341,7 @@ class _WMScreenState extends State<WMScreen> {
                       ),
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Slot End Time",
+                        SLOT_END_TIME,
                         style: TextStyle(
                           fontSize: 18,
                         ),
@@ -465,7 +424,7 @@ class _WMScreenState extends State<WMScreen> {
                                     }
                                   }
                                 }
-                                print("CONFLICT = $conflict");
+                                print("$CONFLICT = $conflict");
                               },
                               items: List.generate(
                                 hrs.length,
@@ -481,7 +440,7 @@ class _WMScreenState extends State<WMScreen> {
                               margin: EdgeInsets.only(bottom: 15, top: 15),
                               alignment: Alignment.center,
                               child: Text(
-                                "Hours",
+                                HOURS,
                                 style: TextStyle(
                                   fontSize: 16,
                                 ),
@@ -562,7 +521,7 @@ class _WMScreenState extends State<WMScreen> {
                                     }
                                   }
                                 }
-                                print("CONFLICT = $conflict");
+                                print("$CONFLICT = $conflict");
                               },
                               items: List.generate(
                                 mins.length,
@@ -578,7 +537,7 @@ class _WMScreenState extends State<WMScreen> {
                               margin: EdgeInsets.only(bottom: 15, top: 15),
                               alignment: Alignment.center,
                               child: Text(
-                                "Minutes",
+                                MINUTES,
                                 style: TextStyle(
                                   fontSize: 16,
                                 ),
@@ -638,7 +597,7 @@ class _WMScreenState extends State<WMScreen> {
                       ),
                       child: (!conflict)
                           ? Text(
-                              "Book slot",
+                              BOOK_SLOT_BTN,
                               style: TextStyle(
                                 fontSize: 18,
                                 color: Colors.white,
@@ -656,7 +615,7 @@ class _WMScreenState extends State<WMScreen> {
                                   width: 10,
                                 ),
                                 Text(
-                                  "Slot Conflict",
+                                  SLOT_CONFLICT,
                                   style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.white,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:instix_sl_client/constants.dart';
 import 'package:instix_sl_client/provider/DataProvider.dart';
 import 'package:instix_sl_client/screens/HomePage.dart';
 import 'package:instix_sl_client/screens/LoginSSO.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       providers: [ChangeNotifierProvider(create: (_) => DataProvider())],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: SMART_LAUNDRY,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

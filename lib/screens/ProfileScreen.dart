@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         left: 30,
                       ),
                       child: Text(
-                        "Profile",
+                        PROFILE,
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
@@ -61,17 +61,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         itemBuilder: (context) => [
                           PopupMenuItem(
                             child: Container(
-                              child: Text("Sign out"),
+                              child: Text(SIGNOUT),
                             ),
-                            onTap: () async {
-                              /* var box = await Hive.openBox(AUTH_DATA);
-                          await box.deleteFromDisk();
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginSSO()),
-                              (route) => false); */
-                            },
+                            onTap: () async {},
                           )
                         ],
                       ),
@@ -112,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    "Hostel ${value.user.hostelNo}",
+                    "$HOSTEL ${value.user.hostelNo}",
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black,
@@ -139,7 +131,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    "Your Bookings",
+                    YOUR_BOOKINGS,
                     style: TextStyle(
                       fontSize: subHeadingTextSize,
                       fontWeight: FontWeight.bold,
@@ -153,13 +145,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     fixedWidth: MediaQuery.of(context).size.width / 2.5,
                     children: {
                       1: Text(
-                        'Upcoming',
+                        UPCOMING,
                         style: TextStyle(
                           fontSize: 16,
                         ),
                       ),
                       2: Text(
-                        'Past',
+                        PAST,
                         style: TextStyle(
                           fontSize: 16,
                         ),
@@ -264,7 +256,7 @@ class _UpcomingBookingState extends State<UpcomingBooking> {
             children: [
               Text("${widget.slot.floor}", style: TextStyle(fontSize: 18)),
               Text(
-                "FLOOR",
+                FLOOR,
                 style: TextStyle(fontSize: 10),
               ),
             ],
@@ -282,7 +274,7 @@ class _UpcomingBookingState extends State<UpcomingBooking> {
             ),
             child: Container(
               child: Text(
-                "Activate",
+                ACTIVATE,
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.white,
@@ -325,9 +317,9 @@ class _PastBookingState extends State<PastBooking> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("8", style: TextStyle(fontSize: 18)),
+              Text(8.toString(), style: TextStyle(fontSize: 18)),
               Text(
-                "FLOOR",
+                FLOOR,
                 style: TextStyle(fontSize: 10),
               ),
             ],

@@ -16,12 +16,12 @@ Map<dynamic, dynamic> user = {
   "first_name": "Himanshu",
   "last_name": "Choudhary",
   "mobile": "+91 79760 73886",
-  "hostel": 16,
+  "hostel": "16",
 };
 
 List<dynamic> machines = [
   {
-    "floor": 1,
+    "floor": "1",
     "macId": "jfn45n3m5m",
     "booked": [
       {
@@ -47,7 +47,7 @@ List<dynamic> machines = [
     ],
   },
   {
-    "floor": 2,
+    "floor": "2",
     "macId": "dsf093jd9s",
     "booked": [
       {
@@ -73,7 +73,7 @@ List<dynamic> machines = [
     ],
   },
   {
-    "floor": 3,
+    "floor": "3",
     "macId": "hc45hc9ddf",
     "booked": [
       {
@@ -99,7 +99,7 @@ List<dynamic> machines = [
     ],
   },
   {
-    "floor": 4,
+    "floor": "4",
     "macId": "fdfd4c9834",
     "booked": [
       {
@@ -125,7 +125,7 @@ List<dynamic> machines = [
     ],
   },
   {
-    "floor": 5,
+    "floor": "5",
     "macId": "ssd5hc9b5f",
     "booked": [
       {
@@ -151,7 +151,7 @@ List<dynamic> machines = [
     ],
   },
   {
-    "floor": 6,
+    "floor": "6",
     "macId": "zsu76h3f5d",
     "booked": [
       {
@@ -177,7 +177,7 @@ List<dynamic> machines = [
     ],
   },
   {
-    "floor": 7,
+    "floor": "7",
     "macId": "uf8s9d0old",
     "booked": [
       {
@@ -251,7 +251,6 @@ class MainScreenSplashState extends State<MainScreenSplash> {
   @override
   void initState() {
     initialLoading();
-
     super.initState();
   }
 

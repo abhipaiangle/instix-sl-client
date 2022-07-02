@@ -25,7 +25,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: Container(
+        margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> {
                         left: 30,
                       ),
                       child: Text(
-                        "Smart Laundry",
+                        SMART_LAUNDRY,
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                         left: 32,
                       ),
                       child: Text(
-                        "Hostel 15",
+                        "$HOSTEL ${Provider.of<DataProvider>(context).user.hostelNo}",
                         style: TextStyle(
                           fontSize: 20,
                         ),
@@ -109,34 +110,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            /* Container(
-              margin: EdgeInsets.symmetric(horizontal: 30),
-              child: RawMaterialButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomePage()));
-                },
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    borderRadius,
-                  ),
-                ),
-                fillColor: Colors.blue,
-                child: Container(
-                  alignment: Alignment.center,
-                  width: double.infinity,
-                  margin: EdgeInsets.symmetric(vertical: 15),
-                  child: Text(
-                    "Proceed",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ) */
           ],
         ),
       ),
@@ -145,7 +118,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class WashingMachineTile extends StatefulWidget {
-  int floor;
+  String floor;
   List<dynamic> bookedSlots;
   String macId;
   WashingMachineTile({
@@ -177,14 +150,6 @@ class _WashingMachineTileState extends State<WashingMachineTile> {
               ),
             ),
           );
-          /* if (widget.busy) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => WMbusyState()));
-          }
-          if (!widget.busy) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => WMFreeState()));
-          } */
         },
         child: Container(
           padding: EdgeInsets.all(15),
@@ -204,7 +169,7 @@ class _WashingMachineTileState extends State<WashingMachineTile> {
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 5),
                     child: Text(
-                      "Washing Machine",
+                      WASHING_MACHINE,
                       style: TextStyle(fontSize: 20),
                       softWrap: true,
                     ),
@@ -212,7 +177,7 @@ class _WashingMachineTileState extends State<WashingMachineTile> {
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 5),
                     child: Text(
-                      "Floor ${widget.floor}",
+                      "$FLOOR ${widget.floor}",
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
@@ -225,20 +190,6 @@ class _WashingMachineTileState extends State<WashingMachineTile> {
                     color: Colors.blue,
                     size: 100,
                   ),
-                  /* Container(
-                    decoration: BoxDecoration(
-                      color: (widget.busy) ? Colors.orange : Colors.green,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    child: Text(
-                      (widget.busy) ? "BUSY" : "FREE",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ), */
                 ],
               )
             ],

@@ -64,7 +64,7 @@ class _LoginSignupState extends State<LoginSignup> {
             Container(
               margin: EdgeInsets.only(left: 15, top: 15),
               child: Text(
-                "Sign In",
+                SIGNIN,
                 style: TextStyle(
                   fontSize: 35,
                   fontWeight: FontWeight.bold,
@@ -79,7 +79,7 @@ class _LoginSignupState extends State<LoginSignup> {
                   Container(
                     margin: EdgeInsets.only(bottom: 15),
                     child: Text(
-                      "Please enter your credentials\n and continue",
+                      ENTER_CREDS_CONTINUE,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16),
                     ),
@@ -92,7 +92,7 @@ class _LoginSignupState extends State<LoginSignup> {
                           horizontal: 20,
                           vertical: 20,
                         ),
-                        hintText: "eg. ldap@iitb.ac.in",
+                        hintText: EMIAL_EXAMPLE,
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(borderRadius),
                           borderSide: BorderSide(
@@ -123,7 +123,7 @@ class _LoginSignupState extends State<LoginSignup> {
                           horizontal: 20,
                           vertical: 20,
                         ),
-                        hintText: "Password",
+                        hintText: PASSWORD,
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(borderRadius),
                           borderSide: BorderSide(
@@ -146,7 +146,7 @@ class _LoginSignupState extends State<LoginSignup> {
                   Container(
                     margin: EdgeInsets.only(top: 20, left: 30, right: 30),
                     child: Text(
-                      "Password must contain one uppercase, one lowercase, one numerical, one special character and must 8 characters in length.",
+                      PASSWORD_CONDITION,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 12),
                     ),
@@ -181,7 +181,7 @@ class _LoginSignupState extends State<LoginSignup> {
                   width: double.infinity,
                   margin: EdgeInsets.symmetric(vertical: 15),
                   child: Text(
-                    "Proceed",
+                    PROCEED,
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,

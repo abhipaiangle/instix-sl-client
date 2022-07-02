@@ -52,7 +52,7 @@ class _LoginSSOState extends State<LoginSSO> {
             Container(
               margin: EdgeInsets.only(left: 15, top: 15),
               child: Text(
-                "Sign In",
+                SIGNIN,
                 style: TextStyle(
                   fontSize: 35,
                   fontWeight: FontWeight.bold,
@@ -67,7 +67,7 @@ class _LoginSSOState extends State<LoginSSO> {
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 30),
                     child: Text(
-                      "Please login with IITB SSO to continue",
+                      LOGIN_SSO_CONTINUE,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 20),
                     ),
@@ -139,7 +139,7 @@ class _LoginSSOState extends State<LoginSSO> {
                   width: double.infinity,
                   margin: EdgeInsets.symmetric(vertical: 15),
                   child: Text(
-                    "Login with SSO",
+                    LOGIN_SSO,
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,
