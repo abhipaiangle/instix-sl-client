@@ -28,6 +28,7 @@ String RESOURCES_URL =
 String SMART_LAUNDRY = "Smart Laundry";
 String WASHING_MACHINE = "Washing Machine";
 String FLOOR = "Floor";
+String WING = "Wing";
 String HOSTEL = "Hostel";
 String TODAY_BOOKED_SLOTS = "Today's Booked Slots";
 String BOOK_SLOT = "Book a Slot";

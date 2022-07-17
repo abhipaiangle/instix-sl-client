@@ -229,6 +229,7 @@ class MainScreenSplashState extends State<MainScreenSplash> {
           WashingMachine(
             floor: machines[i]["floor"],
             mac: machines[i]["macId"],
+            wing: "A",
             bookedSlots: slots,
           ),
         );

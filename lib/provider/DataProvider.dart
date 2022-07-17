@@ -6,7 +6,18 @@ import '../classes/Slot.dart';
 
 class DataProvider extends ChangeNotifier {
   late User _user;
+  bool _loading = false;
   List<WashingMachine> _machines = [];
+
+  void startLoading() {
+    this._loading = true;
+    notifyListeners();
+  }
+
+  void stopLoading() {
+    this._loading = false;
+    notifyListeners();
+  }
 
   void initializeUser(String id, String firstName, String lastName,
       String mobile, String hostel, List<UserSlot> bookedSlots) {
@@ -52,7 +63,7 @@ class DataProvider extends ChangeNotifier {
   }
 
   void printData() {
-    print("Provider data = ${this._machines}");
+    print("Provider data = ${this._machines.last}");
   }
 
   void printUser() {
@@ -62,4 +73,5 @@ class DataProvider extends ChangeNotifier {
 
   List<WashingMachine> get machines => _machines;
   User get user => _user;
+  bool get loading => _loading;
 }

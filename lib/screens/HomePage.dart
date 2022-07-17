@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:http/http.dart';
+import 'package:instix_sl_client/APIs/APIFunctions.dart';
 import 'package:instix_sl_client/screens/ProfileScreen.dart';
 import 'package:instix_sl_client/screens/WashingMachineScreen.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '../classes/WashingMachine.dart';
 import '../constants.dart';
 import '../provider/DataProvider.dart';
+
+bool _loading = false;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,8 +23,24 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<dynamic> machines = [];
 
+  void testFunction() async {
+    setState(() {
+      _loading = true;
+    });
+    print("_loading : $_loading");
+    Response res = await fetchMachines(context, "15");
+    await Future.delayed(Duration(milliseconds: 3000), () {});
+
+    setState(() {
+      _loading = false;
+    });
+    print("_loading : $_loading");
+    // print("RESPONSE = ${res.body}");
+  }
+
   @override
   void initState() {
+    // testFunction();
     super.initState();
   }
 
@@ -91,22 +113,38 @@ class _HomePageState extends State<HomePage> {
             ),
             Expanded(
               child: Container(
-                child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Consumer<DataProvider>(
-                    builder: (context, value, child) => Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: List.generate(
-                        value.machines.length,
-                        (index) => WashingMachineTile(
-                          floor: value.machines[index].floor,
-                          bookedSlots: value.machines[index].bookedSlots,
-                          macId: value.machines[index].mac,
+                child: AnimatedSwitcher(
+                  duration: Duration(milliseconds: 250),
+                  child: (_loading)
+                      ? Center(
+                          key: Key("1"),
+                          child: Container(
+                            child: Lottie.asset(
+                              'assets/laundry_animation.json',
+                              repeat: true,
+                            ),
+                          ),
+                        )
+                      : SingleChildScrollView(
+                          key: Key("0"),
+                          physics: BouncingScrollPhysics(),
+                          child: Consumer<DataProvider>(
+                            builder: (context, value, child) => Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: List.generate(
+                                value.machines.length,
+                                (index) => WashingMachineTile(
+                                  floor: value.machines[index].floor,
+                                  bookedSlots:
+                                      value.machines[index].bookedSlots,
+                                  macId: value.machines[index].mac,
+                                  wing: value.machines[index].wing,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
                 ),
               ),
             ),
@@ -121,11 +159,13 @@ class WashingMachineTile extends StatefulWidget {
   String floor;
   List<dynamic> bookedSlots;
   String macId;
+  String wing;
   WashingMachineTile({
     Key? key,
     required this.macId,
     required this.bookedSlots,
     required this.floor,
+    required this.wing,
   }) : super(key: key);
 
   @override
@@ -177,7 +217,7 @@ class _WashingMachineTileState extends State<WashingMachineTile> {
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 5),
                     child: Text(
-                      "$FLOOR ${widget.floor}",
+                      "$FLOOR ${widget.floor} $WING ${widget.wing}",
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
