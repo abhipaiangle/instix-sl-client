@@ -13,7 +13,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List<Quote> quotes = [
     Quote(author: 'Pulkit  Jindal', text: "The World is good"),
-    Quote(author: "Hi", text: "Is this really important")
+    Quote(author: "Hi", text: "Is this really important"),
   ];
 
   int hello = 1;
