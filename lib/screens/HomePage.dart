@@ -28,19 +28,15 @@ class _HomePageState extends State<HomePage> {
       _loading = true;
     });
     print("_loading : $_loading");
-    Response res = await fetchMachines(context, "15");
-    await Future.delayed(Duration(milliseconds: 3000), () {});
-
+    Response res = await fetchMachines(context, Provider.of<DataProvider>(context, listen: false).user.hostelNo);
     setState(() {
       _loading = false;
     });
-    print("_loading : $_loading");
-    // print("RESPONSE = ${res.body}");
   }
 
   @override
   void initState() {
-    // testFunction();
+    testFunction();
     super.initState();
   }
 

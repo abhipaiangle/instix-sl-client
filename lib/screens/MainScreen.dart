@@ -225,14 +225,6 @@ class MainScreenSplashState extends State<MainScreenSplash> {
         }
         slots.sort(((a, b) => ((a.start.hour * 60) + a.start.minute)
             .compareTo((b.start.hour * 60) + b.start.minute)));
-        Provider.of<DataProvider>(context, listen: false).addMachine(
-          WashingMachine(
-            floor: machines[i]["floor"],
-            mac: machines[i]["macId"],
-            wing: "A",
-            bookedSlots: slots,
-          ),
-        );
       }
       Provider.of<DataProvider>(context, listen: false).initializeUser(
         user["id"],
@@ -243,7 +235,6 @@ class MainScreenSplashState extends State<MainScreenSplash> {
         [],
       );
     });
-    Provider.of<DataProvider>(context, listen: false).printData();
     Provider.of<DataProvider>(context, listen: false).printUser();
     Navigator.pushAndRemoveUntil(context,
         MaterialPageRoute(builder: (context) => HomePage()), (route) => false);
