@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
       _loading = true;
     });
     print("_loading : $_loading");
-    Response res = await fetchMachines(context, Provider.of<DataProvider>(context, listen: false).user.hostelNo);
+    await fetchMachines(context, Provider.of<DataProvider>(context, listen: false).user.hostelNo);
     setState(() {
       _loading = false;
     });

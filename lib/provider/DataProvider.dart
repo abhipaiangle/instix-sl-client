@@ -37,6 +37,12 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearSlot(String macId)
+  {
+    this._machines.firstWhere((element) => element.mac==macId).bookedSlots.clear();
+    notifyListeners();
+  }
+
   void addSlot(String macId, Slot slot) {
     WashingMachine wm =
         this._machines.firstWhere((element) => element.mac == macId);

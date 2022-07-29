@@ -1,5 +1,6 @@
 import 'package:direct_select/direct_select.dart';
 import 'package:flutter/material.dart';
+import 'package:instix_sl_client/APIs/APIFunctions.dart';
 import 'package:instix_sl_client/classes/WashingMachine.dart';
 import 'package:instix_sl_client/provider/DataProvider.dart';
 import 'package:intl/intl.dart';
@@ -32,8 +33,13 @@ class _WMScreenState extends State<WMScreen> {
   int endMinsIndex = 0;
   int _currentValue = 0;
 
+  void test() async {
+    await fetchMachineSlots(context, widget.macId);
+  }
+
   @override
   void initState() {
+    test();
     super.initState();
   }
 
