@@ -8,6 +8,7 @@ class DataProvider extends ChangeNotifier {
   late User _user;
   bool _loading = false;
   List<WashingMachine> _machines = [];
+  late DateTime _serverTime;
 
   void startLoading() {
     this._loading = true;
@@ -19,15 +20,21 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setServerTime(DateTime time) {
+    this._serverTime = time;
+    notifyListeners();
+  }
+
   void initializeUser(String id, String firstName, String lastName,
-      String mobile, String hostel, List<UserSlot> bookedSlots) {
+      String mobile, String hostel, List<UserSlot> upcomingSlots, List<UserSlot> pastSlots) {
     User user = User(
       id: id,
       firstName: firstName,
       lastName: lastName,
       mobile: mobile,
       hostelNo: hostel,
-      bookedSlots: bookedSlots,
+      upcomingSlots: upcomingSlots,
+      pastSlots: pastSlots,
     );
     this._user = user;
   }
@@ -41,6 +48,11 @@ class DataProvider extends ChangeNotifier {
   {
     this._machines.firstWhere((element) => element.mac==macId).bookedSlots.clear();
     notifyListeners();
+  }
+
+  void clearUserSlots()
+  {
+    this._user.upcomingSlots.clear();
   }
 
   void addSlot(String macId, Slot slot) {
@@ -57,10 +69,22 @@ class DataProvider extends ChangeNotifier {
         .bookedSlots
         .sort(((a, b) => ((a.start.hour * 60) + a.start.minute)
             .compareTo((b.start.hour * 60) + b.start.minute)));
-    this._user.bookedSlots.add(UserSlot(
-        mac: wm.mac, floor: wm.floor, start: slot.start, end: slot.end));
-    _user.bookedSlots.sort(((a, b) => ((a.start.hour * 60) + a.start.minute)
-        .compareTo((b.start.hour * 60) + b.start.minute)));
+    /* this._user.bookedSlots.add(UserSlot(
+        mac: wm.mac, floor: wm.floor, start: slot.start, end: slot.end)); */
+    notifyListeners();
+  }
+
+  void addUpcomingUserSlot(UserSlot userSlot){
+    this.user.upcomingSlots.add(userSlot);
+    this._user.upcomingSlots.sort(((a, b) => (a.start.millisecondsSinceEpoch)
+        .compareTo(b.start.millisecondsSinceEpoch)));
+    notifyListeners();
+  }
+
+  void addPastUserSlot(UserSlot userSlot){
+    this.user.pastSlots.add(userSlot);
+    this._user.pastSlots.sort(((a, b) => (b.start.millisecondsSinceEpoch)
+        .compareTo(a.start.millisecondsSinceEpoch)));
     notifyListeners();
   }
 
@@ -80,4 +104,5 @@ class DataProvider extends ChangeNotifier {
   List<WashingMachine> get machines => _machines;
   User get user => _user;
   bool get loading => _loading;
+  DateTime get serverTime => _serverTime;
 }

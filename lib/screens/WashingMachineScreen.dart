@@ -574,17 +574,25 @@ class _WMScreenState extends State<WMScreen> {
                   onPressed: (conflict)
                       ? null
                       : () {
+                          DateTime now = DateTime.now();
                           Provider.of<DataProvider>(context, listen: false)
                               .addSlot(
                                   widget.macId,
                                   Slot(
-                                      start:
-                                          TimeOfDay(
-                                              hour: hrs[startHrsIndex],
-                                              minute: mins[startMinsIndex]),
-                                      end: TimeOfDay(
-                                          hour: hrs[endHrsIndex],
-                                          minute: mins[endMinsIndex])));
+                                      start: DateTime(
+                                        now.year,
+                                        now.month,
+                                        now.day,
+                                        hrs[startHrsIndex],
+                                        mins[startMinsIndex],
+                                      ),
+                                      end: DateTime(
+                                        now.year,
+                                        now.month,
+                                        now.day,
+                                        hrs[endHrsIndex],
+                                        mins[endMinsIndex],
+                                      )));
                         },
                   elevation: 0,
                   shape: RoundedRectangleBorder(
@@ -643,8 +651,8 @@ class _WMScreenState extends State<WMScreen> {
 }
 
 class SlotBox extends StatefulWidget {
-  TimeOfDay slotStart;
-  TimeOfDay slotEnd;
+  DateTime slotStart;
+  DateTime slotEnd;
   SlotBox({
     Key? key,
     required this.slotStart,
@@ -671,7 +679,7 @@ class _SlotBoxState extends State<SlotBox> {
         children: [
           Text(
             // "${DateFormat("hh:mm a").format(widget.slotStart)} - ${DateFormat("hh:mm a").format(widget.slotEnd)}",
-            "${widget.slotStart.format(context)} - ${widget.slotEnd.format(context)}",
+            "${DateFormat('yyyy-MM-dd – kk:mm').format(widget.slotStart)} - ${DateFormat('yyyy-MM-dd – kk:mm').format(widget.slotEnd)}",
             style: TextStyle(color: Colors.white, fontSize: 12),
           ),
         ],

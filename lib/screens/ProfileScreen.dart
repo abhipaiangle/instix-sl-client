@@ -1,7 +1,9 @@
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
+import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:instix_sl_client/APIs/APIFunctions.dart';
 import 'package:instix_sl_client/classes/user.dart';
 import 'package:instix_sl_client/constants.dart';
 import 'package:instix_sl_client/provider/DataProvider.dart';
@@ -10,7 +12,11 @@ import 'package:instix_sl_client/screens/LoginSignupScreen.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../classes/Slot.dart';
+
 int tabSelection = 1;
+bool slotsLoaded = false;
+late DateTime serverTime;
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -20,9 +26,25 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+  void fetchUserData() async {
+    setState(() {
+      slotsLoaded = false;
+    });
+    await getUserSlots(context);
+    await Future.delayed(Duration(milliseconds: 2500));
+    setState(() {
+      slotsLoaded = true;
+    });
+  }
+
   @override
   void initState() {
+    setState(() {
+      slotsLoaded = false;
+    });
     super.initState();
+    fetchUserData();
   }
 
   @override
@@ -30,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       body: SafeArea(
         child: Consumer<DataProvider>(
-          builder: ((context, value, child) {
+          builder: ((context, provider, child) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +96,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: 15,
                 ),
                 Center(
-                  child: CircleAvatar(
+                  child: /* FadeShimmer.round(
+                    size: MediaQuery.of(context).size.width / 2,
+                    fadeTheme: FadeTheme.light,
+                    baseColor: Color(0xffE6E8EB),
+                  ), */
+                      CircleAvatar(
                     radius: MediaQuery.of(context).size.width / 4,
                     backgroundColor: Colors.blue.withOpacity(0.25),
                     child: Icon(
@@ -90,7 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    "${value.user.firstName} ${value.user.lastName}",
+                    "${provider.user.firstName} ${provider.user.lastName}",
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -104,7 +131,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    "$HOSTEL ${value.user.hostelNo}",
+                    "$HOSTEL ${provider.user.hostelNo}",
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black,
@@ -117,7 +144,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    value.user.mobile,
+                    provider.user.mobile,
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black,
@@ -195,23 +222,73 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Container(
                         child: AnimatedSwitcher(
                           duration: Duration(milliseconds: 300),
-                          child: (tabSelection == 1)
-                              ? Column(
-                                  children: List.generate(
-                                    value.user.bookedSlots.length,
-                                    (index) => UpcomingBooking(
-                                      slot: value.user.bookedSlots[index],
-                                    ),
-                                  ),
-                                )
+                          child: (slotsLoaded)
+                              ? (tabSelection == 1)
+                                  ? Column(
+                                      key: Key("0"),
+                                      children: List.generate(
+                                          provider.user.upcomingSlots.length,
+                                          (index) {
+                                        print(provider.serverTime
+                                            .difference(provider
+                                                .user.upcomingSlots[index].start)
+                                            .inMinutes);
+                                        return UpcomingBooking(
+                                          slot:
+                                              provider.user.upcomingSlots[index],
+                                          enabled: provider.user
+                                                      .upcomingSlots[index].start
+                                                  .difference(provider.serverTime)
+                                                  .inMinutes <=
+                                              10,
+                                        );
+                                      }),
+                                    )
+                                  : Column(
+                                      key: Key("1"),
+                                      children: List.generate(
+                                          provider.user.pastSlots.length,
+                                          (index) => PastBooking(slot: provider.user.pastSlots[index],)),
+                                    )
                               : Column(
-                                  children: List.generate(
-                                      8,
-                                      (index) => PastBooking(
-                                          slotStart: DateTime.now()
-                                              .add(Duration(hours: 8 * index)),
-                                          slotEnd: DateTime.now().add(Duration(
-                                              hours: (8 * index) + 2)))),
+                                  key: Key("2"),
+                                  children: [
+                                    Container(
+                                      width: double.infinity,
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      child: FadeShimmer(
+                                        height: 60,
+                                        width: 150,
+                                        radius: borderRadius,
+                                        highlightColor: Color(0xffF9F9FB),
+                                        baseColor: Color(0xffE6E8EB),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      child: FadeShimmer(
+                                        height: 60,
+                                        width: 150,
+                                        millisecondsDelay: 150,
+                                        radius: borderRadius,
+                                        highlightColor: Color(0xffF9F9FB),
+                                        baseColor: Color(0xffE6E8EB),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      child: FadeShimmer(
+                                        height: 60,
+                                        width: 150,
+                                        millisecondsDelay: 300,
+                                        radius: borderRadius,
+                                        highlightColor: Color(0xffF9F9FB),
+                                        baseColor: Color(0xffE6E8EB),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                         ),
                       ),
@@ -229,9 +306,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 class UpcomingBooking extends StatefulWidget {
   UserSlot slot;
+  bool enabled;
   UpcomingBooking({
     Key? key,
     required this.slot,
+    required this.enabled,
   }) : super(key: key);
 
   @override
@@ -249,26 +328,36 @@ class _UpcomingBookingState extends State<UpcomingBooking> {
       margin: EdgeInsets.only(bottom: 10),
       padding: EdgeInsets.symmetric(vertical: 5),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("${widget.slot.floor}", style: TextStyle(fontSize: 18)),
+              Text("${widget.slot.floor}", style: TextStyle(fontSize: 16)),
               Text(
                 FLOOR,
-                style: TextStyle(fontSize: 10),
+                style: TextStyle(fontSize: 8),
+              ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text("${widget.slot.wing}", style: TextStyle(fontSize: 16)),
+              Text(
+                WING,
+                style: TextStyle(fontSize: 8),
               ),
             ],
           ),
           Text(
-            widget.slot.start.format(context),
+            DateFormat('yyyy-MM-dd – kk:mm').format(widget.slot.start),
             textAlign: TextAlign.center,
           ),
           RawMaterialButton(
             onPressed: () {},
             elevation: 0,
-            fillColor: (false) ? Colors.green : Colors.grey,
+            fillColor: (widget.enabled) ? Colors.green : Colors.grey,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius),
             ),
@@ -289,12 +378,10 @@ class _UpcomingBookingState extends State<UpcomingBooking> {
 }
 
 class PastBooking extends StatefulWidget {
-  DateTime slotStart;
-  DateTime slotEnd;
+  UserSlot slot;
   PastBooking({
     Key? key,
-    required this.slotStart,
-    required this.slotEnd,
+    required this.slot,
   }) : super(key: key);
 
   @override
@@ -312,24 +399,34 @@ class _PastBookingState extends State<PastBooking> {
       margin: EdgeInsets.only(bottom: 10),
       padding: EdgeInsets.symmetric(vertical: 12),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(8.toString(), style: TextStyle(fontSize: 18)),
+              Text(widget.slot.floor, style: TextStyle(fontSize: 18)),
               Text(
                 FLOOR,
                 style: TextStyle(fontSize: 10),
               ),
             ],
           ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(widget.slot.wing, style: TextStyle(fontSize: 18)),
+              Text(
+                WING,
+                style: TextStyle(fontSize: 10),
+              ),
+            ],
+          ),
           Text(
-            DateFormat("dd MMM yyyy\nhh:mm a").format(widget.slotStart),
+            DateFormat("dd MMM yyyy\nhh:mm a").format(widget.slot.start),
             textAlign: TextAlign.center,
           ),
           Text(
-            DateFormat("dd MMM yyyy\nhh:mm a").format(widget.slotEnd),
+            DateFormat("dd MMM yyyy\nhh:mm a").format(widget.slot.end),
             textAlign: TextAlign.center,
           ),
         ],

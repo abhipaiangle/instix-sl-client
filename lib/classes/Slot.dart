@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class Slot {
   String id = "";
-  TimeOfDay start;
-  TimeOfDay end;
+  DateTime start;
+  DateTime end;
   Slot({
     this.id = "",
     required this.start,

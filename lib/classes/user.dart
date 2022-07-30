@@ -6,24 +6,30 @@ class User {
   String lastName;
   String mobile;
   String hostelNo;
-  List<UserSlot> bookedSlots;
+  List<UserSlot> upcomingSlots;
+  List<UserSlot> pastSlots;
   User({
     required this.id,
     required this.firstName,
     required this.lastName,
     required this.mobile,
     required this.hostelNo,
-    required this.bookedSlots,
+    required this.upcomingSlots,
+    required this.pastSlots,
   });
 }
 
 class UserSlot {
   String mac;
+  String hostel;
+  String wing;
   String floor;
-  TimeOfDay start;
-  TimeOfDay end;
+  DateTime start;
+  DateTime end;
   UserSlot({
     required this.mac,
+    required this.hostel,
+    required this.wing,
     required this.floor,
     required this.start,
     required this.end,

@@ -218,10 +218,8 @@ class MainScreenSplashState extends State<MainScreenSplash> {
         List<Slot> slots = [];
         for (int j = 0; j < machines[i]["booked"].length; j++) {
           slots.add(Slot(
-              start: TimeOfDay.fromDateTime(
-                  DateTime.parse(machines[i]["booked"][j]["start"])),
-              end: TimeOfDay.fromDateTime(
-                  DateTime.parse(machines[i]["booked"][j]["end"]))));
+              start: DateTime.parse(machines[i]["booked"][j]["start"]),
+              end: DateTime.parse(machines[i]["booked"][j]["end"])));
         }
         slots.sort(((a, b) => ((a.start.hour * 60) + a.start.minute)
             .compareTo((b.start.hour * 60) + b.start.minute)));
@@ -232,6 +230,7 @@ class MainScreenSplashState extends State<MainScreenSplash> {
         user["last_name"],
         user["mobile"],
         user["hostel"],
+        [],
         [],
       );
     });
