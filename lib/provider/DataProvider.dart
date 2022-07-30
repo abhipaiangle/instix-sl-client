@@ -53,6 +53,7 @@ class DataProvider extends ChangeNotifier {
   void clearUserSlots()
   {
     this._user.upcomingSlots.clear();
+    this._user.pastSlots.clear();
   }
 
   void addSlot(String macId, Slot slot) {
